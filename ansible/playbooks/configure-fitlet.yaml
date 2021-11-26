@@ -1,0 +1,11 @@
+---
+- hosts: edge
+  gather_facts: true
+  tasks:
+  - name: include edge-machinery role
+    include_role:
+      name: edge-machinery
+    vars:
+      container_image: quay.io/tim_speetjens/machinery-service
+      container_image_version: 1.0.0-SNAPSHOT-65
+

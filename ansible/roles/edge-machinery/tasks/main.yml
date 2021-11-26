@@ -1,0 +1,4 @@
+---
+- name: smoketest
+  debug:
+    msg: hello

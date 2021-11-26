@@ -1,0 +1,7 @@
+[all]
+
+[all:children]
+edge
+
+[edge]
+fitlet.qiot.piros ansible_user=edge
