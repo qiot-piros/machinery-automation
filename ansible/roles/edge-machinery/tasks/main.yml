@@ -1,4 +1,40 @@
 ---
-- name: smoketest
-  debug:
-    msg: hello
+- name: Add group to run machinery
+  group:
+    name: machinery
+    gid: 1001
+- name: Add user to run machinery
+  user:
+    name: machinery
+    uid: 1001
+    group: machinery
+- name: create /var/data
+  file:
+    path: /var/data
+    state: directory
+    mode: 0775
+- name: template systemd podman service unit file
+  template:
+    src: systemd-unit.service.j2
+    dest: /etc/systemd/system/{{ service_name }}.service
+  notify:
+  - systemd_daemon_reload
+  vars:
+    service_name: machinery-service
+    container_image: registry.access.redhat.com/ubi8/httpd-24:latest
+  register: podmanservice
+    
+- name: wait for daemon_reload
+  meta: flush_handlers
+
+- name: restart if systemd unit changed
+  systemd:
+    name: machinery-service
+    state: restarted
+  when: podmanservice.changed
+
+- name: start systemd unit
+  systemd:
+    name: machinery-service
+    enabled: true
+    state: started

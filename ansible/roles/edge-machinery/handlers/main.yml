@@ -1,2 +1,4 @@
 ---
-# handlers file for edge-machinery
+- name: systemd_daemon_reload
+  systemd:
+    daemon_reload: true
