@@ -5,9 +5,3 @@
   - name: include edge-machinery role
     include_role:
       name: edge-machinery
-    vars:
-      container_image: registry.access.redhat.com/ubi8/httpd-24
-      container_image_version: latest
-      n_container_image: quay.io/tim_speetjens/machinery-service
-      n_container_image_version: 1.0.0-SNAPSHOT-65
-

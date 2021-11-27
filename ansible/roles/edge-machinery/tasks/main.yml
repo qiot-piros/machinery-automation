@@ -1,4 +1,8 @@
 ---
+- name: check required parameters
+  fail:
+    msg: container_image and container_image_version are required variables
+  when: container_image is undefined or container_image_version is undefined
 - name: create /var/data
   file:
     path: /var/data
