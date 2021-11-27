@@ -1,13 +1,4 @@
 ---
-- name: Add group to run machinery
-  group:
-    name: machinery
-    gid: 1001
-- name: Add user to run machinery
-  user:
-    name: machinery
-    uid: 1001
-    group: machinery
 - name: create /var/data
   file:
     path: /var/data
