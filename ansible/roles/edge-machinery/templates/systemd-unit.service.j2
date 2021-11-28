@@ -9,7 +9,7 @@ Environment=PODMAN_SYSTEMD_UNIT=%n
 Restart=on-failure
 TimeoutStopSec=70
 ExecStartPre=/bin/rm -f %t/container-{{ service_name }}.pid %t/container-{{ service_name }}.ctr-id
-ExecStart=/usr/bin/podman run --conmon-pidfile %t/container-{{ service_name }}.pid --cidfile %t/container-{{ service_name }}.ctr-id --cgroups=no-conmon -d --replace --name {{ service_name }} -p 8080:8080 -v /etc/qiot-systeminformation:/etc/qiot-systeminformation,ro -v /var/data:/var/data:z {{ container_image }}:{{ container_image_version}}
+ExecStart=/usr/bin/podman run --conmon-pidfile %t/container-{{ service_name }}.pid --cidfile %t/container-{{ service_name }}.ctr-id --cgroups=no-conmon -d --replace --name {{ service_name }} -p 8080:8080 -v /etc/qiot-systeminformation:/etc/qiot-systeminformation,ro -v /var/data:/var/data:z -e BROKER_PORT=443 -e FACTORY_URL=https://facility-manager-service-factory.apps.sno.qiot.piros {{ container_image }}:{{ container_image_version}}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-{{ service_name }}.ctr-id -t 10
 ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-{{ service_name }}.ctr-id
 PIDFile=%t/container-{{ service_name }}.pid
