@@ -8,9 +8,9 @@
     path: /var/data
     state: directory
     mode: 0775
-- name: create /var/certs
+- name: create /var/certs-bootstrap
   file:
-    path: /var/certs-bootsrap
+    path: /var/certs-bootstrap
     state: directory
     mode: 0775
 - name: template systemd podman service unit file
